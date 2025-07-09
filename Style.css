@@ -82,7 +82,7 @@ body {
 .doctor-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2.5rem;
+  gap: 5rem;
   padding: 3rem;
   max-width: 1400px;
   margin: 0 auto;
