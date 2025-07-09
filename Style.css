@@ -80,31 +80,33 @@ body {
   border: 4px solid #ddd;
 }
 .doctor-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  align:center;
-  gap: 5rem;
-  padding: 3rem;
-  max-width: 1400px;
-  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
 }
 
 .doctor-card {
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(10px);
+  width: 320px; /* or max 90% on mobile */
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
   border-radius: 20px;
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
-  padding: 5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
   text-align: center;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  color: #111;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 400px; /* optional for equal sizing */
-  min-width: 400px;
+  transition: transform 0.3s ease;
+  z-index: 0;
+  position: relative;
 }
+
+.doctor-card:hover {
+  transform: translateY(-6px);
+  z-index: 1;
+}
+
 
 .doctor-card:hover {
   transform: translateY(-6px);
