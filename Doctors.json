@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Dr.Yogesh Suthar",
+    "specialization": "homeopathic",
+    "image": "https://cdn-icons-png.flaticon.com/512/3774/3774299.png",
+    "location": "Ahmedabad"
+  },
+  {
+    "name": "Dr.Dhruv Lodu",
+    "specialization": "Dermatologist",
+    "image": "https://cdn-icons-png.flaticon.com/512/3774/3774300.png",
+    "location": "Delhi"
+  }
+]
