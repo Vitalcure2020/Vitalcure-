@@ -90,7 +90,7 @@ body {
 }
 
 .doctor-card {
-  width: 320px; /* or max 90% on mobile */
+  width: 300px; /* or max 90% on mobile */
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(12px);
   border-radius: 20px;
