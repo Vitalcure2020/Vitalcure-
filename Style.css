@@ -82,6 +82,7 @@ body {
 .doctor-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  align:center;
   gap: 5rem;
   padding: 3rem;
   max-width: 1400px;
@@ -94,7 +95,6 @@ body {
   border-radius: 20px;
   box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
   padding: 5rem;
-  gap:5rem;
   text-align: center;
   transition: all 0.3s ease;
   text-decoration: none;
