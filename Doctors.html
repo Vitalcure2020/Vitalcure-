@@ -27,8 +27,35 @@
     "location": "Delhi"
   }</h2>
   <div id="doctorList" class="grid"></div>
+<script>
+  const doctors = [
+    {
+      name: "Dr. Yogesh Suthar",
+      qualification: "BHMS, MD",
+      location: "Ahmedabad",
+      image: "https://cdn-icons-png.flaticon.com/512/3774/3774299.png"
+    },
+    {
+      name: "Dr. Dhruv Lodu",
+      qualification: "BHMS, MD",
+      location: "Ahmedabad",
+      image: "https://cdn-icons-png.flaticon.com/512/3774/3774300.png"
+    }
+  ];
 
-  <script src="script.js"></script>
-  <script src="doctors.json"></script>
+  const container = document.getElementById('doctorList');
+  doctors.forEach(doc => {
+    const card = document.createElement('div');
+    card.className = 'doctor-card';
+    card.innerHTML = `
+      <img src="${doc.image}" alt="${doc.name}" />
+      <h3>${doc.name}</h3>
+      <p><strong>Qualification:</strong> ${doc.qualification}</p>
+      <p><strong>Location:</strong> ${doc.location}</p>
+      <button>Book Appointment</button>
+    `;
+    container.appendChild(card);
+  });
+</script>
 </body>
 </html>
