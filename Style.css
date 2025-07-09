@@ -102,6 +102,7 @@ body {
   flex-direction: column;
   align-items: center;
   min-height: 400px; /* optional for equal sizing */
+  min-width: 400px;
 }
 
 .doctor-card:hover {
