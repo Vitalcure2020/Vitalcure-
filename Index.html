@@ -26,10 +26,15 @@
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center">
                     <a href="#home" class="flex items-center">
-                        <img src="19de4e8f-6a24-40f4-985f-c7829cf932ac.jpg" alt="VitalCure Logo" class="h-10">
+                        <img src="https://via.placeholder.com/150x50.png?text=VitalCure+Logo" alt="VitalCure Logo" class="h-10">
                     </a>
                 </div>
                 <div class="flex items-center space-x-4">
+                    <form id="searchForm" class="flex items-center space-x-2">
+                        <input type="text" name="doctor" placeholder="Search Doctor..." class="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600">
+                        <input type="text" name="city" placeholder="Search City..." class="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600">
+                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">Search</button>
+                    </form>
                     <a href="#home" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Home</a>
                     <a href="#doctors" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Doctors</a>
                     <a href="#contact" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Contact Us</a>
@@ -51,7 +56,7 @@
     <section id="doctors" class="py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Our Expert Doctors</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div id="doctorList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Doctor Card 1 -->
                 <div class="doctor-card bg-white rounded-lg shadow-md overflow-hidden">
                     <img src="https://via.placeholder.com/400x300" alt="Doctor" class="w-full h-48 object-cover">
@@ -100,12 +105,12 @@
                 </div>
                 <div>
                     <h3 class="text-xl font-semibold text-gray-800 mb-4">Send a Message</h3>
-                    <div class="space-y-4">
-                        <input type="text" placeholder="Your Name" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600">
-                        <input type="email" placeholder="Your Email" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600">
-                        <textarea placeholder="Your Message" rows="5" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600"></textarea>
-                        <button class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition">Send Message</button>
-                    </div>
+                    <form id="contactForm" class="space-y-4">
+                        <input type="text" name="name" placeholder="Your Name" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600">
+                        <input type="email" name="email" placeholder="Your Email" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600">
+                        <textarea name="message" placeholder="Your Message" rows="5" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600"></textarea>
+                        <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition">Send Message</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -133,12 +138,53 @@
             });
         });
 
-        // Basic form submission alert (for demo purposes)
-        document.querySelectorAll('button').forEach(button => {
-            if (button.textContent === 'Book Appointment' || button.textContent === 'Send Message') {
-                button.addEventListener('click', () => {
-                    alert('This is a demo. Form submission is not implemented.');
-                });
+        // Search Form Submission
+        document.getElementById('searchForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const doctor = document.querySelector('input[name="doctor"]').value;
+            const city = document.querySelector('input[name="city"]').value;
+            const response = await fetch('/search', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ doctor, city })
+            });
+            const data = await response.json();
+            if (data.success) {
+                alert('Search results: ' + JSON.stringify(data.results));
+                // Update doctorList with search results (e.g., filter doctors)
+                document.getElementById('doctorList').innerHTML = data.results.map(doctor => `
+                    <div class="doctor-card bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="https://via.placeholder.com/400x300" alt="Doctor" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-gray-800">${doctor.name}</h3>
+                            <p class="text-gray-600">${doctor.specialty}</p>
+                            <p class="text-gray-500 mt-2">${doctor.description}</p>
+                            <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">Book Appointment</button>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                alert('No results found.');
+            }
+        });
+
+        // Contact Form Submission
+        document.getElementById('contactForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const name = document.querySelector('input[name="name"]').value;
+            const email = document.querySelector('input[name="email"]').value;
+            const message = document.querySelector('textarea[name="message"]').value;
+            const response = await fetch('/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, message })
+            });
+            const data = await response.json();
+            if (data.success) {
+                alert('Message sent successfully!');
+                this.reset();
+            } else {
+                alert('Failed to send message. Please try again.');
             }
         });
     </script>
