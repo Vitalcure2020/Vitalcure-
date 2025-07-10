@@ -1,32 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>VitalCure</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalCure - Healthcare Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .doctor-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .doctor-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </head>
-<body>
-  <header>
-    <h1>VitalCure</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="doctors.html">Doctors</a>
-      <a href="signin.html">Sign In</a>
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-blue-600">VitalCure</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#home" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                    <a href="#doctors" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Doctors</a>
+                    <a href="#contact" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Contact Us</a>
+                </div>
+            </div>
+        </div>
     </nav>
-  </header>
 
-  <section class="features">
-    <div class="card">
-      <img src="https://cdn-icons-png.flaticon.com/512/3209/3209265.png" alt="Video Call"/>
-      <h2>Video Consult</h2>
-      <p>Connect with doctors in 60 seconds</p>
-    </div>
-    <div class="card">
-      <img src="https://cdn-icons-png.flaticon.com/512/3774/3774299.png" alt="Find Doctor"/>
-      <h2>Find Doctor</h2>
-      <p>Book appointments with experts</p>
-    </div>
-  </section>
+    <!-- Hero Section -->
+    <section id="home" class="bg-gradient-to-r from-blue-500 to-teal-400 text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold mb-4">Welcome to VitalCure</h2>
+            <p class="text-lg mb-6">Your trusted partner for quality healthcare services. Book appointments with top doctors today!</p>
+            <a href="#doctors" class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-100 transition">Book Appointment</a>
+        </div>
+    </section>
+
+    <!-- Doctors Section -->
+    <section id="doctors" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Our Expert Doctors</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Doctor Card 1 -->
+                <div class="doctor-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://via.placeholder.com/400x300" alt="Doctor" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800">Dr. yogesh Suthar</h3>
+                        <p class="text-gray-600">BHMS</p>
+                        <p class="text-gray-500 mt-2">Experienced in homeopathy treating with homeopathy over 15 years of expertise.</p>
+                        <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">Book Appointment</button>
+                    </div>
+                </div>
+                <!-- Doctor Card 2 -->
+                <div class="doctor-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://via.placeholder.com/400x300" alt="Doctor" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800">Dr. Sarah Johnson</h3>
+                        <p class="text-gray-600">Pediatrician</p>
+                        <p class="text-gray-500 mt-2">Specializes in child healthcare with a compassionate approach.</p>
+                        <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">Book Appointment</button>
+                    </div>
+                </div>
+                <!-- Doctor Card 3 -->
+                <div class="doctor-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://via.placeholder.com/400x300" alt="Doctor" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800">Dr. Michael Lee</h3>
+                        <p class="text-gray-600">Neurologist</p>
+                        <p class="text-gray-500 mt-2">Expert in neurological disorders with advanced treatment methods.</p>
+                        <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">Book Appointment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact" class="bg-gray-200 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Contact Us</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Get in Touch</h3>
+                    <p class="text-gray-600 mb-4">Have any questions or need assistance? Reach out to us!</p>
+                    <p class="text-gray-600"><strong>Email:</strong> support@vitalcure.com</p>
+                    <p class="text-gray-600"><strong>Phone:</strong> +1 (555) 123-4567</p>
+                    <p class="text-gray-600"><strong>Address:</strong> 123 Health St, Wellness City, USA</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Send a Message</h3>
+                    <div class="space-y-4">
+                        <input type="text" placeholder="Your Name" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600">
+                        <input type="email" placeholder="Your Email" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600">
+                        <textarea placeholder="Your Message" rows="5" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600"></textarea>
+                        <button class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition">Send Message</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2025 VitalCure. All rights reserved.</p>
+            <div class="mt-4 space-x-4">
+                <a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a>
+                <a href="#" class="text-gray-400 hover:text-white">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Basic form submission alert (for demo purposes)
+        document.querySelectorAll('button').forEach(button => {
+            if (button.textContent === 'Book Appointment' || button.textContent === 'Send Message') {
+                button.addEventListener('click', () => {
+                    alert('This is a demo. Form submission is not implemented.');
+                });
+            }
+        });
+    </script>
 </body>
 </html>
