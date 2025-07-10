@@ -10,9 +10,8 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(to bottom right, #edf4ff, #dbeaff);
+  background: colour, #dbeaff);
   color: #333;
-  line-height: 1.6;
   overflow-x: hidden;
 }
 
