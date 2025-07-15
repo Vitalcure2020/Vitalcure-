@@ -1,200 +1,118 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VitalCure - Find Doctors</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f5f7fa;
-        }
-        .hero-bg {
-            background: linear-gradient(135deg, #00b4d8 0%, #48cae4 100%);
-        }
-        .doctor-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .doctor-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-        }
-        @media (max-width: 640px) {
-            .nav-menu {
-                display: none;
-            }
-            .nav-menu.active {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 60px;
-                left: 0;
-                right: 0;
-                background-color: white;
-                padding: 1rem;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            }
-            .search-bar {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            .search-bar input {
-                width: 100%;
-            }
-            .search-bar button {
-                width: 100%;
-            }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .fade-in {
-            animation: fadeIn 1s ease-in;
-        }
-    </style>
-</head>
-<body class="min-h-screen">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center">
-                    <a href="index.html" class="flex items-center">
-                        <img src="https://via.placeholder.com/150x50.png?text=VitalCure+Logo" alt="VitalCure Logo" class="h-10">
-                    </a>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <button id="menuToggle" class="md:hidden text-gray-700 focus:outline-none">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                        </svg>
-                    </button>
-                    <div id="navMenu" class="nav-menu hidden md:flex items-center space-x-4">
-                        <a href="index.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                        <a href="doctors.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">Doctors</a>
-                        <a href="contact.html" class="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">Contact Us</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+<!-- Search Bar -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <form id="searchForm" class="search-bar flex w-full max-w-2xl mx-auto">
+        <input type="text" name="query" placeholder="Search Doctor or City..." class="w-full p-3 rounded-l-md border border-gray-600 bg-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-400 text-white placeholder-gray-400">
+        <button type="submit" class="bg-cyan-600 text-white px-6 py-3 rounded-r-md hover:bg-cyan-700 transition duration-300 pulse">Search</button>
+    </form>
+</div>
 
-    <!-- Search Bar -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <form id="searchForm" class="search-bar flex w-full max-w-2xl mx-auto">
-            <input type="text" name="query" placeholder="Search Doctor or City..." class="w-full p-3 rounded-l-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-600 text-gray-700">
-            <button type="submit" class="bg-teal-600 text-white px-6 py-3 rounded-r-md hover:bg-teal-700 transition duration-300">Search</button>
-        </form>
+<!-- Hero Section -->
+<section id="home" class="hero-bg py-16 sm:py-20 relative">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold neon-text mb-4">Cyber Health Revolution</h1>
+        <p class="text-sm sm:text-lg mb-6 fade-in delay-200">Connect with experts now. Updated: 11:44 AM IST, Tuesday, July 15, 2025</p>
+        <a href="#doctors" class="bg-orange-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-orange-600 transition duration-300 fade-in delay-400 text-sm sm:text-base pulse">Book Appointment</a>
     </div>
+</section>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-bg text-white py-16 sm:py-20">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 fade-in">Find Your Doctor Today</h1>
-            <p class="text-sm sm:text-lg mb-6 fade-in delay-200">Book appointments with top specialists across cities at VitalCure. Updated: 09:49 PM IST, Sunday, July 13, 2025</p>
-            <a href="#doctors" class="bg-white text-teal-600 px-6 py-3 rounded-full font-semibold hover:bg-teal-100 transition duration-300 fade-in delay-400 text-sm sm:text-base">Book Appointment Now</a>
-        </div>
-    </section>
-
-    <!-- Doctors Section -->
-    <section id="doctors" class="py-12 sm:py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 text-center mb-8 sm:mb-12 fade-in">Our Expert Doctors</h2>
-            <div id="doctorList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                <!-- Doctor 1 -->
-                <div class="doctor-card bg-white rounded-lg overflow-hidden shadow-md">
-                    <img src="https://via.placeholder.com/300x200.png?text=Dr.+John+Smith" alt="Dr. John Smith" class="w-full h-48 object-cover">
-                    <div class="p-4 text-center">
-                        <h3 class="text-lg font-semibold text-gray-800">Dr. John Smith</h3>
-                        <p class="text-teal-600">Cardiologist</p>
-                        <p class="text-gray-600 text-sm">New York</p>
-                        <button class="mt-2 bg-teal-600 text-white px-4 py-2 rounded-full hover:bg-teal-700 transition duration-300 text-sm">Book Now</button>
-                    </div>
+<!-- Doctors Section -->
+<section id="doctors" class="py-12 sm:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl sm:text-3xl font-bold text-white text-center mb-8 sm:mb-12 neon-text fade-in">Top Health Specialists</h2>
+        <div id="doctorList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <!-- Initial Doctor Cards -->
+            <div class="doctor-card rounded-lg overflow-hidden">
+                <img src="https://via.placeholder.com/300x200.png?text=Dr.+John+Smith" alt="Dr. John Smith" class="w-full h-48 object-cover">
+                <div class="p-4 text-center">
+                    <h3 class="text-lg font-semibold text-cyan-400">Dr. John Smith</h3>
+                    <p class="text-orange-400">Cardiologist</p>
+                    <p class="text-gray-300 text-sm">New York</p>
+                    <button class="mt-2 bg-cyan-600 text-white px-4 py-2 rounded-full hover:bg-cyan-700 transition duration-300 text-sm">Book Now</button>
                 </div>
-                <!-- Doctor 2 -->
-                <div class="doctor-card bg-white rounded-lg overflow-hidden shadow-md">
-                    <img src="https://via.placeholder.com/300x200.png?text=Dr.+Sarah+Johnson" alt="Dr. Sarah Johnson" class="w-full h-48 object-cover">
-                    <div class="p-4 text-center">
-                        <h3 class="text-lg font-semibold text-gray-800">Dr. Sarah Johnson</h3>
-                        <p class="text-teal-600">Pediatrician</p>
-                        <p class="text-gray-600 text-sm">Los Angeles</p>
-                        <button class="mt-2 bg-teal-600 text-white px-4 py-2 rounded-full hover:bg-teal-700 transition duration-300 text-sm">Book Now</button>
-                    </div>
+            </div>
+            <div class="doctor-card rounded-lg overflow-hidden">
+                <img src="https://via.placeholder.com/300x200.png?text=Dr.+Sarah+Johnson" alt="Dr. Sarah Johnson" class="w-full h-48 object-cover">
+                <div class="p-4 text-center">
+                    <h3 class="text-lg font-semibold text-cyan-400">Dr. Sarah Johnson</h3>
+                    <p class="text-orange-400">Pediatrician</p>
+                    <p class="text-gray-300 text-sm">Los Angeles</p>
+                    <button class="mt-2 bg-cyan-600 text-white px-4 py-2 rounded-full hover:bg-cyan-700 transition duration-300 text-sm">Book Now</button>
                 </div>
-                <!-- Doctor 3 -->
-                <div class="doctor-card bg-white rounded-lg overflow-hidden shadow-md">
-                    <img src="https://via.placeholder.com/300x200.png?text=Dr.+Michael+Lee" alt="Dr. Michael Lee" class="w-full h-48 object-cover">
-                    <div class="p-4 text-center">
-                        <h3 class="text-lg font-semibold text-gray-800">Dr. Michael Lee</h3>
-                        <p class="text-teal-600">Neurologist</p>
-                        <p class="text-gray-600 text-sm">Chicago</p>
-                        <button class="mt-2 bg-teal-600 text-white px-4 py-2 rounded-full hover:bg-teal-700 transition duration-300 text-sm">Book Now</button>
-                    </div>
+            </div>
+            <div class="doctor-card rounded-lg overflow-hidden">
+                <img src="https://via.placeholder.com/300x200.png?text=Dr.+Michael+Lee" alt="Dr. Michael Lee" class="w-full h-48 object-cover">
+                <div class="p-4 text-center">
+                    <h3 class="text-lg font-semibold text-cyan-400">Dr. Michael Lee</h3>
+                    <p class="text-orange-400">Neurologist</p>
+                    <p class="text-gray-300 text-sm">Chicago</p>
+                    <button class="mt-2 bg-cyan-600 text-white px-4 py-2 rounded-full hover:bg-cyan-700 transition duration-300 text-sm">Book Now</button>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-6 sm:py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-sm sm:text-base">© 2025 VitalCure. All rights reserved.</p>
-            <div class="mt-2 sm:mt-4 space-x-4">
-                <a href="#" class="text-gray-400 hover:text-white text-sm sm:text-base">Privacy Policy</a>
-                <a href="#" class="text-gray-400 hover:text-white text-sm sm:text-base">Terms of Service</a>
-            </div>
+<!-- Footer -->
+<footer class="bg-gray-900 py-6 sm:py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <p class="text-sm sm:text-base text-gray-400">© 2025 VitalCure. All rights reserved.</p>
+        <div class="mt-2 sm:mt-4 space-x-4">
+            <a href="#" class="text-gray-500 hover:text-cyan-400 text-sm sm:text-base">Privacy Policy</a>
+            <a href="#" class="text-gray-500 hover:text-cyan-400 text-sm sm:text-base">Terms of Service</a>
         </div>
-    </footer>
+    </div>
+</section>
 
-    <script>
-        // Mobile Menu Toggle
-        document.getElementById('menuToggle').addEventListener('click', () => {
-            document.getElementById('navMenu').classList.toggle('active');
-        });
+<script>
+    // Mobile Menu Toggle
+    document.getElementById('menuToggle').addEventListener('click', () => {
+        document.getElementById('navMenu').classList.toggle('active');
+    });
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-                if (window.innerWidth <= 640) {
-                    document.getElementById('navMenu').classList.remove('active');
-                }
-            });
-        });
-
-        // Search Form Submission
-        document.getElementById('searchForm').addEventListener('submit', async function (e) {
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            const query = document.querySelector('input[name="query"]').value;
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+            if (window.innerWidth <= 640) {
+                document.getElementById('navMenu').classList.remove('active');
+            }
+        });
+    });
+
+    // Search Form Submission
+    document.getElementById('searchForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const query = document.querySelector('input[name="query"]').value;
+        const doctorList = document.getElementById('doctorList');
+        doctorList.innerHTML = '<div class="text-center py-10"><span class="loading text-orange-400">Loading...</span></div>';
+
+        try {
             const response = await fetch('/.netlify/functions/search', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ query })
             });
             const data = await response.json();
-            if (data.success) {
-                // Update doctorList with search results
-                document.getElementById('doctorList').innerHTML = data.results.map(doctor => `
-                    <div class="doctor-card bg-white rounded-lg overflow-hidden shadow-md">
+            if (data.success && data.results.length > 0) {
+                doctorList.innerHTML = data.results.map(doctor => `
+                    <div class="doctor-card rounded-lg overflow-hidden">
                         <img src="https://via.placeholder.com/300x200.png?text=${encodeURIComponent(doctor.name)}" alt="${doctor.name}" class="w-full h-48 object-cover">
                         <div class="p-4 text-center">
-                            <h3 class="text-lg font-semibold text-gray-800">${doctor.name}</h3>
-                            <p class="text-teal-600">${doctor.specialty}</p>
-                            <p class="text-gray-600 text-sm">${doctor.city}</p>
-                            <button class="mt-2 bg-teal-600 text-white px-4 py-2 rounded-full hover:bg-teal-700 transition duration-300 text-sm">Book Now</button>
+                            <h3 class="text-lg font-semibold text-cyan-400">${doctor.name}</h3>
+                            <p class="text-orange-400">${doctor.specialty}</p>
+                            <p class="text-gray-300 text-sm">${doctor.city}</p>
+                            <button class="mt-2 bg-cyan-600 text-white px-4 py-2 rounded-full hover:bg-cyan-700 transition duration-300 text-sm">Book Now</button>
                         </div>
                     </div>
                 `).join('');
             } else {
-                alert('No results found.');
+                doctorList.innerHTML = '<div class="text-center py-10 text-gray-400">No results found.</div>';
             }
-        });
-    </script>
-</body>
-</html>
+        } catch (error) {
+            doctorList.innerHTML = '<div class="text-center py-10 text-red-400">Error loading results. Please try again.</div>';
+        }
+    });
+</script>
