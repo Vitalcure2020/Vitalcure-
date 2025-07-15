@@ -1,118 +1,258 @@
-<!-- Search Bar -->
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-    <form id="searchForm" class="search-bar flex w-full max-w-2xl mx-auto">
-        <input type="text" name="query" placeholder="Search Doctor or City..." class="w-full p-3 rounded-l-md border border-gray-600 bg-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-400 text-white placeholder-gray-400">
-        <button type="submit" class="bg-cyan-600 text-white px-6 py-3 rounded-r-md hover:bg-cyan-700 transition duration-300 pulse">Search</button>
-    </form>
-</div>
-
-<!-- Hero Section -->
-<section id="home" class="hero-bg py-16 sm:py-20 relative">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
-        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold neon-text mb-4">Cyber Health Revolution</h1>
-        <p class="text-sm sm:text-lg mb-6 fade-in delay-200">Connect with experts now. Updated: 11:44 AM IST, Tuesday, July 15, 2025</p>
-        <a href="#doctors" class="bg-orange-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-orange-600 transition duration-300 fade-in delay-400 text-sm sm:text-base pulse">Book Appointment</a>
-    </div>
-</section>
-
-<!-- Doctors Section -->
-<section id="doctors" class="py-12 sm:py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl sm:text-3xl font-bold text-white text-center mb-8 sm:mb-12 neon-text fade-in">Top Health Specialists</h2>
-        <div id="doctorList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            <!-- Initial Doctor Cards -->
-            <div class="doctor-card rounded-lg overflow-hidden">
-                <img src="https://via.placeholder.com/300x200.png?text=Dr.+John+Smith" alt="Dr. John Smith" class="w-full h-48 object-cover">
-                <div class="p-4 text-center">
-                    <h3 class="text-lg font-semibold text-cyan-400">Dr. John Smith</h3>
-                    <p class="text-orange-400">Cardiologist</p>
-                    <p class="text-gray-300 text-sm">New York</p>
-                    <button class="mt-2 bg-cyan-600 text-white px-4 py-2 rounded-full hover:bg-cyan-700 transition duration-300 text-sm">Book Now</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalCure - Cyber Health Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #1a1a2e;
+            color: #e5e5e5;
+            overflow-x: hidden;
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 100%);
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 2rem;
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.2) 0%, rgba(255, 0, 255, 0.2) 50%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: 0;
+        }
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .doctor-card {
+            background: #16213e;
+            border: 1px solid #3a4a6b;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 12px;
+        }
+        .doctor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 150, 255, 0.4);
+        }
+        .neon-text {
+            text-shadow: 0 0 10px #00ffff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+            color: #00ffff;
+        }
+        .neon-button {
+            background: #ff4500;
+            text-shadow: 0 0 5px #ff4500;
+            transition: all 0.3s ease;
+        }
+        .neon-button:hover {
+            background: #ff6200;
+            box-shadow: 0 0 10px #ff4500;
+        }
+        @media (max-width: 640px) {
+            .nav-menu {
+                display: none;
+            }
+            .nav-menu.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background-color: #16213e;
+                padding: 1rem;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            }
+            .search-bar {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            .search-bar input {
+                width: 100%;
+                padding: 0.75rem;
+            }
+            .search-bar button {
+                width: 100%;
+                padding: 0.75rem;
+            }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        .loading {
+            animation: spin 1s linear infinite;
+            color: #ff4500;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-gray-900 shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center">
+                        <img src="https://via.placeholder.com/150x50.png?text=VitalCure+Logo" alt="VitalCure Logo" class="h-10">
+                    </a>
                 </div>
-            </div>
-            <div class="doctor-card rounded-lg overflow-hidden">
-                <img src="https://via.placeholder.com/300x200.png?text=Dr.+Sarah+Johnson" alt="Dr. Sarah Johnson" class="w-full h-48 object-cover">
-                <div class="p-4 text-center">
-                    <h3 class="text-lg font-semibold text-cyan-400">Dr. Sarah Johnson</h3>
-                    <p class="text-orange-400">Pediatrician</p>
-                    <p class="text-gray-300 text-sm">Los Angeles</p>
-                    <button class="mt-2 bg-cyan-600 text-white px-4 py-2 rounded-full hover:bg-cyan-700 transition duration-300 text-sm">Book Now</button>
-                </div>
-            </div>
-            <div class="doctor-card rounded-lg overflow-hidden">
-                <img src="https://via.placeholder.com/300x200.png?text=Dr.+Michael+Lee" alt="Dr. Michael Lee" class="w-full h-48 object-cover">
-                <div class="p-4 text-center">
-                    <h3 class="text-lg font-semibold text-cyan-400">Dr. Michael Lee</h3>
-                    <p class="text-orange-400">Neurologist</p>
-                    <p class="text-gray-300 text-sm">Chicago</p>
-                    <button class="mt-2 bg-cyan-600 text-white px-4 py-2 rounded-full hover:bg-cyan-700 transition duration-300 text-sm">Book Now</button>
+                <div class="flex items-center space-x-4">
+                    <button id="menuToggle" class="md:hidden text-cyan-400 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                    <div id="navMenu" class="nav-menu hidden md:flex items-center space-x-4">
+                        <a href="index.html" class="text-cyan-400 hover:text-orange-400 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="doctors.html" class="text-cyan-400 hover:text-orange-400 px-3 py-2 rounded-md text-sm font-medium">Doctors</a>
+                        <a href="contact.html" class="text-cyan-400 hover:text-orange-400 px-3 py-2 rounded-md text-sm font-medium">Contact Us</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </nav>
 
-<!-- Footer -->
-<footer class="bg-gray-900 py-6 sm:py-8">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <p class="text-sm sm:text-base text-gray-400">© 2025 VitalCure. All rights reserved.</p>
-        <div class="mt-2 sm:mt-4 space-x-4">
-            <a href="#" class="text-gray-500 hover:text-cyan-400 text-sm sm:text-base">Privacy Policy</a>
-            <a href="#" class="text-gray-500 hover:text-cyan-400 text-sm sm:text-base">Terms of Service</a>
+    <!-- Search Bar -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <form id="searchForm" class="search-bar flex w-full max-w-3xl mx-auto">
+            <input type="text" name="query" placeholder="Search Doctor, City, or Specialty..." class="w-full p-4 rounded-l-md border border-gray-600 bg-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-400 text-white placeholder-gray-400 text-lg">
+            <button type="submit" class="neon-button text-white px-6 py-4 rounded-r-md hover:bg-cyan-700 transition duration-300 pulse text-lg">Search</button>
+        </form>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg py-20 sm:py-24 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold neon-text mb-6 fade-in">Cyber Health Revolution</h1>
+            <p class="text-base sm:text-lg mb-8 fade-in delay-200">Connect with experts now. Updated: 11:48 AM IST, Tuesday, July 15, 2025</p>
+            <a href="#doctors" class="neon-button px-8 py-3 rounded-full font-semibold hover:bg-orange-600 transition duration-300 fade-in delay-400 text-base sm:text-lg">Book Appointment</a>
         </div>
-    </div>
-</section>
+    </section>
 
-<script>
-    // Mobile Menu Toggle
-    document.getElementById('menuToggle').addEventListener('click', () => {
-        document.getElementById('navMenu').classList.toggle('active');
-    });
+    <!-- Doctors Section -->
+    <section id="doctors" class="py-16 sm:py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl sm:text-4xl font-bold text-white text-center mb-10 sm:mb-14 neon-text fade-in">Top Health Specialists</h2>
+            <div id="doctorList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Initial Doctor Cards -->
+                <div class="doctor-card">
+                    <img src="https://via.placeholder.com/300x200.png?text=Dr.+John+Smith" alt="Dr. John Smith" class="w-full h-56 object-cover">
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-semibold text-cyan-400">Dr. John Smith</h3>
+                        <p class="text-orange-400 text-lg">Cardiologist</p>
+                        <p class="text-gray-300 text-base">New York</p>
+                        <button class="mt-4 neon-button px-5 py-2 rounded-full hover:bg-cyan-700 transition duration-300 text-sm">Book Now</button>
+                    </div>
+                </div>
+                <div class="doctor-card">
+                    <img src="https://via.placeholder.com/300x200.png?text=Dr.+Sarah+Johnson" alt="Dr. Sarah Johnson" class="w-full h-56 object-cover">
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-semibold text-cyan-400">Dr. Sarah Johnson</h3>
+                        <p class="text-orange-400 text-lg">Pediatrician</p>
+                        <p class="text-gray-300 text-base">Los Angeles</p>
+                        <button class="mt-4 neon-button px-5 py-2 rounded-full hover:bg-cyan-700 transition duration-300 text-sm">Book Now</button>
+                    </div>
+                </div>
+                <div class="doctor-card">
+                    <img src="https://via.placeholder.com/300x200.png?text=Dr.+Michael+Lee" alt="Dr. Michael Lee" class="w-full h-56 object-cover">
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-semibold text-cyan-400">Dr. Michael Lee</h3>
+                        <p class="text-orange-400 text-lg">Neurologist</p>
+                        <p class="text-gray-300 text-base">Chicago</p>
+                        <button class="mt-4 neon-button px-5 py-2 rounded-full hover:bg-cyan-700 transition duration-300 text-sm">Book Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-8 sm:py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm sm:text-base text-gray-400">© 2025 VitalCure. All rights reserved.</p>
+            <div class="mt-4 sm:mt-6 space-x-6">
+                <a href="#" class="text-gray-500 hover:text-cyan-400 text-sm sm:text-base">Privacy Policy</a>
+                <a href="#" class="text-gray-500 hover:text-cyan-400 text-sm sm:text-base">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('navMenu').classList.toggle('active');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                if (window.innerWidth <= 640) {
+                    document.getElementById('navMenu').classList.remove('active');
+                }
             });
-            if (window.innerWidth <= 640) {
-                document.getElementById('navMenu').classList.remove('active');
+        });
+
+        // Search Form Submission
+        document.getElementById('searchForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const query = document.querySelector('input[name="query"]').value;
+            const doctorList = document.getElementById('doctorList');
+            doctorList.innerHTML = '<div class="text-center py-12"><span class="loading text-orange-400 text-xl">Loading...</span></div>';
+
+            try {
+                const response = await fetch('/.netlify/functions/search', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query })
+                });
+                const data = await response.json();
+                if (data.success && data.results.length > 0) {
+                    doctorList.innerHTML = data.results.map(doctor => `
+                        <div class="doctor-card">
+                            <img src="https://via.placeholder.com/300x200.png?text=${encodeURIComponent(doctor.name)}" alt="${doctor.name}" class="w-full h-56 object-cover">
+                            <div class="p-6 text-center">
+                                <h3 class="text-xl font-semibold text-cyan-400">${doctor.name}</h3>
+                                <p class="text-orange-400 text-lg">${doctor.specialty}</p>
+                                <p class="text-gray-300 text-base">${doctor.city}</p>
+                                <button class="mt-4 neon-button px-5 py-2 rounded-full hover:bg-cyan-700 transition duration-300 text-sm">Book Now</button>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    doctorList.innerHTML = '<div class="text-center py-12 text-gray-400 text-lg">No results found.</div>';
+                }
+            } catch (error) {
+                doctorList.innerHTML = '<div class="text-center py-12 text-red-400 text-lg">Error loading results. Please try again.</div>';
             }
         });
-    });
-
-    // Search Form Submission
-    document.getElementById('searchForm').addEventListener('submit', async function (e) {
-        e.preventDefault();
-        const query = document.querySelector('input[name="query"]').value;
-        const doctorList = document.getElementById('doctorList');
-        doctorList.innerHTML = '<div class="text-center py-10"><span class="loading text-orange-400">Loading...</span></div>';
-
-        try {
-            const response = await fetch('/.netlify/functions/search', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ query })
-            });
-            const data = await response.json();
-            if (data.success && data.results.length > 0) {
-                doctorList.innerHTML = data.results.map(doctor => `
-                    <div class="doctor-card rounded-lg overflow-hidden">
-                        <img src="https://via.placeholder.com/300x200.png?text=${encodeURIComponent(doctor.name)}" alt="${doctor.name}" class="w-full h-48 object-cover">
-                        <div class="p-4 text-center">
-                            <h3 class="text-lg font-semibold text-cyan-400">${doctor.name}</h3>
-                            <p class="text-orange-400">${doctor.specialty}</p>
-                            <p class="text-gray-300 text-sm">${doctor.city}</p>
-                            <button class="mt-2 bg-cyan-600 text-white px-4 py-2 rounded-full hover:bg-cyan-700 transition duration-300 text-sm">Book Now</button>
-                        </div>
-                    </div>
-                `).join('');
-            } else {
-                doctorList.innerHTML = '<div class="text-center py-10 text-gray-400">No results found.</div>';
-            }
-        } catch (error) {
-            doctorList.innerHTML = '<div class="text-center py-10 text-red-400">Error loading results. Please try again.</div>';
-        }
-    });
-</script>
+    </script>
+</body>
+</html>
