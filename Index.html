@@ -1,258 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VitalCure - Cyber Health Hub</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #1a1a2e;
-            color: #e5e5e5;
-            overflow-x: hidden;
-        }
-        .hero-bg {
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 100%);
-            position: relative;
-            overflow: hidden;
-            padding-bottom: 2rem;
-        }
-        .hero-bg::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 255, 255, 0.2) 0%, rgba(255, 0, 255, 0.2) 50%, transparent 70%);
-            animation: rotate 20s linear infinite;
-            z-index: 0;
-        }
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .doctor-card {
-            background: #16213e;
-            border: 1px solid #3a4a6b;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-radius: 12px;
-        }
-        .doctor-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 150, 255, 0.4);
-        }
-        .neon-text {
-            text-shadow: 0 0 10px #00ffff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
-            color: #00ffff;
-        }
-        .neon-button {
-            background: #ff4500;
-            text-shadow: 0 0 5px #ff4500;
-            transition: all 0.3s ease;
-        }
-        .neon-button:hover {
-            background: #ff6200;
-            box-shadow: 0 0 10px #ff4500;
-        }
-        @media (max-width: 640px) {
-            .nav-menu {
-                display: none;
-            }
-            .nav-menu.active {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 60px;
-                left: 0;
-                right: 0;
-                background-color: #16213e;
-                padding: 1rem;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-            }
-            .search-bar {
-                flex-direction: column;
-                gap: 0.75rem;
-            }
-            .search-bar input {
-                width: 100%;
-                padding: 0.75rem;
-            }
-            .search-bar button {
-                width: 100%;
-                padding: 0.75rem;
-            }
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        .loading {
-            animation: spin 1s linear infinite;
-            color: #ff4500;
-        }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        .fade-in {
-            animation: fadeIn 1s ease-in;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OneApp - Your All-in-One Service Booking Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@700&display=swap');
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      scroll-behavior: smooth;
+    }
+    .hero-bg {
+      background: linear-gradient(135deg, #1e3a8a, #06b6d4);
+      clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    }
+    .service-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+    .cta-button {
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .cta-button:hover {
+      transform: scale(1.05);
+    }
+    .sticky {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(90deg, #1e3a8a, #06b6d4);
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 24px;
+      height: 18px;
+      cursor: pointer;
+    }
+    .hamburger-line {
+      width: 100%;
+      height: 3px;
+      background-color: #1e3a8a;
+      transition: all 0.3s ease;
+    }
+    .menu-open .hamburger-line:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .menu-open .hamburger-line:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-open .hamburger-line:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+    .dropdown-menu {
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+    }
+    .search-container {
+      position: relative;
+    }
+    .search-suggestions {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 40;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .search-suggestion {
+      padding: 10px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .search-suggestion:hover {
+      background-color: #f1f5f9;
+    }
+  </style>
 </head>
-<body class="min-h-screen">
-    <!-- Navigation -->
-    <nav class="bg-gray-900 shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center">
-                    <a href="index.html" class="flex items-center">
-                        <img src="https://via.placeholder.com/150x50.png?text=VitalCure+Logo" alt="VitalCure Logo" class="h-10">
-                    </a>
+<body class="bg-gray-50">
+  <div id="root"></div>
+
+  <script>
+    const { useState, useEffect } = React;
+
+    function Navbar() {
+      const [isMenuOpen, setIsMenuOpen] = useState(false);
+      const [searchQuery, setSearchQuery] = useState('');
+      const [suggestions, setSuggestions] = useState([]);
+
+      const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+      };
+
+      // Mock service data for Grok-powered search (replace with backend API in production)
+      const services = [
+        { name: 'Barber', location: 'Coimbatore', description: 'Book skilled barbers for haircuts and grooming.' },
+        { name: 'Doctor', location: 'Coimbatore', description: 'Schedule in-person or virtual doctor consultations.' },
+        { name: 'Lawyer', location: 'Coimbatore', description: 'Find trusted legal professionals for your needs.' },
+        { name: 'Plumber', location: 'Coimbatore', description: 'Fix leaks and plumbing issues with ease.' },
+        { name: 'Carpenter', location: 'Coimbatore', description: 'Hire carpenters for furniture and repairs.' },
+        { name: 'Mechanic', location: 'Coimbatore', description: 'Get your vehicle serviced by top mechanics.' },
+        { name: 'Engineer', location: 'Coimbatore', description: 'Access civil, electrical, and other engineers.' },
+        { name: 'Electrician', location: 'Coimbatore', description: 'Solve electrical issues with certified experts.' },
+      ];
+
+      // Simulated Grok-powered search logic
+      const handleSearch = (query) => {
+        if (!query.trim()) {
+          setSuggestions([]);
+          return;
+        }
+        const lowerQuery = query.toLowerCase();
+        const filtered = services.filter(
+          (service) =>
+            service.name.toLowerCase().includes(lowerQuery) ||
+            service.description.toLowerCase().includes(lowerQuery) ||
+            service.location.toLowerCase().includes(lowerQuery)
+        );
+        setSuggestions(filtered.slice(0, 5)); // Limit to 5 suggestions
+      };
+
+      useEffect(() => {
+        const debounce = setTimeout(() => {
+          handleSearch(searchQuery);
+        }, 300);
+        return () => clearTimeout(debounce);
+      }, [searchQuery]);
+
+      const handleSuggestionClick = (service) => {
+        setSearchQuery(service.name);
+        setSuggestions([]);
+        // Simulate redirect to booking page (replace with actual routing)
+        alert(`Redirecting to book ${service.name} in ${service.location}`);
+      };
+
+      return (
+        <nav className="bg-white shadow-md p-4 sticky">
+          <div className="container mx-auto flex justify-between items-center">
+            <h1 className="text-3xl font-bold logo">OneApp</h1>
+            <div className="flex items-center space-x-4">
+              <div className="search-container">
+                <input
+                  type="text"
+                  placeholder="Search services (e.g., Plumber in Coimbatore)"
+                  className="px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:border-teal-500 w-64"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                {suggestions.length > 0 && (
+                  <div className="search-suggestions">
+                    {suggestions.map((service, index) => (
+                      <div
+                        key={index}
+                        className="search-suggestion"
+                        onClick={() => handleSuggestionClick(service)}
+                      >
+                        <strong>{service.name}</strong> in {service.location}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div className="relative">
+                <div
+                  className={`hamburger ${isMenuOpen ? 'menu-open' : ''}`}
+                  onClick={toggleMenu}
+                >
+                  <span className="hamburger-line"></span>
+                  <span className="hamburger-line"></span>
+                  <span className="hamburger-line"></span>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <button id="menuToggle" class="md:hidden text-cyan-400 focus:outline-none">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                        </svg>
-                    </button>
-                    <div id="navMenu" class="nav-menu hidden md:flex items-center space-x-4">
-                        <a href="index.html" class="text-cyan-400 hover:text-orange-400 px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                        <a href="doctors.html" class="text-cyan-400 hover:text-orange-400 px-3 py-2 rounded-md text-sm font-medium">Doctors</a>
-                        <a href="contact.html" class="text-cyan-400 hover:text-orange-400 px-3 py-2 rounded-md text-sm font-medium">Contact Us</a>
-                    </div>
+                <div
+                  className={`dropdown-menu absolute right-0 mt-2 bg-white shadow-lg rounded-lg w-48 overflow-hidden ${
+                    isMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
+                  }`}
+                >
+                  <a
+                    href="#home"
+                    className="block px-4 py-2 text-blue-700 hover:bg-teal-500 hover:text-white"
+                    onClick={toggleMenu}
+                  >
+                    Home
+                  </a>
+                  <a
+                    href="#services"
+                    className="block px-4 py-2 text-blue-700 hover:bg-teal-500 hover:text-white"
+                    onClick={toggleMenu}
+                  >
+                    Services
+                  </a>
+                  <a
+                    href="#about"
+                    className="block px-4 py-2 text-blue-700 hover:bg-teal-500 hover:text-white"
+                    onClick={toggleMenu}
+                  >
+                    About
+                  </a>
+                  <a
+                    href="#contact"
+                    className="block px-4 py-2 text-blue-700 hover:bg-teal-500 hover:text-white"
+                    onClick={toggleMenu}
+                  >
+                    Contact
+                  </a>
                 </div>
+              </div>
             </div>
-        </div>
-    </nav>
+          </div>
+        </nav>
+      );
+    }
 
-    <!-- Search Bar -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <form id="searchForm" class="search-bar flex w-full max-w-3xl mx-auto">
-            <input type="text" name="query" placeholder="Search Doctor, City, or Specialty..." class="w-full p-4 rounded-l-md border border-gray-600 bg-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-400 text-white placeholder-gray-400 text-lg">
-            <button type="submit" class="neon-button text-white px-6 py-4 rounded-r-md hover:bg-cyan-700 transition duration-300 pulse text-lg">Search</button>
-        </form>
-    </div>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero-bg py-20 sm:py-24 relative">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold neon-text mb-6 fade-in">Cyber Health Revolution</h1>
-            <p class="text-base sm:text-lg mb-8 fade-in delay-200">Connect with experts now. Updated: 11:48 AM IST, Tuesday, July 15, 2025</p>
-            <a href="#doctors" class="neon-button px-8 py-3 rounded-full font-semibold hover:bg-orange-600 transition duration-300 fade-in delay-400 text-base sm:text-lg">Book Appointment</a>
-        </div>
-    </section>
-
-    <!-- Doctors Section -->
-    <section id="doctors" class="py-16 sm:py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl sm:text-4xl font-bold text-white text-center mb-10 sm:mb-14 neon-text fade-in">Top Health Specialists</h2>
-            <div id="doctorList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Initial Doctor Cards -->
-                <div class="doctor-card">
-                    <img src="https://via.placeholder.com/300x200.png?text=Dr.+John+Smith" alt="Dr. John Smith" class="w-full h-56 object-cover">
-                    <div class="p-6 text-center">
-                        <h3 class="text-xl font-semibold text-cyan-400">Dr. John Smith</h3>
-                        <p class="text-orange-400 text-lg">Cardiologist</p>
-                        <p class="text-gray-300 text-base">New York</p>
-                        <button class="mt-4 neon-button px-5 py-2 rounded-full hover:bg-cyan-700 transition duration-300 text-sm">Book Now</button>
-                    </div>
-                </div>
-                <div class="doctor-card">
-                    <img src="https://via.placeholder.com/300x200.png?text=Dr.+Sarah+Johnson" alt="Dr. Sarah Johnson" class="w-full h-56 object-cover">
-                    <div class="p-6 text-center">
-                        <h3 class="text-xl font-semibold text-cyan-400">Dr. Sarah Johnson</h3>
-                        <p class="text-orange-400 text-lg">Pediatrician</p>
-                        <p class="text-gray-300 text-base">Los Angeles</p>
-                        <button class="mt-4 neon-button px-5 py-2 rounded-full hover:bg-cyan-700 transition duration-300 text-sm">Book Now</button>
-                    </div>
-                </div>
-                <div class="doctor-card">
-                    <img src="https://via.placeholder.com/300x200.png?text=Dr.+Michael+Lee" alt="Dr. Michael Lee" class="w-full h-56 object-cover">
-                    <div class="p-6 text-center">
-                        <h3 class="text-xl font-semibold text-cyan-400">Dr. Michael Lee</h3>
-                        <p class="text-orange-400 text-lg">Neurologist</p>
-                        <p class="text-gray-300 text-base">Chicago</p>
-                        <button class="mt-4 neon-button px-5 py-2 rounded-full hover:bg-cyan-700 transition duration-300 text-sm">Book Now</button>
-                    </div>
-                </div>
+    function Hero() {
+      return (
+        <section id="home" className="hero-bg text-white py-24 text-center">
+          <div className="container mx-auto px-4">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">Book Any Service, Anywhere with OneApp</h2>
+            <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+              Powered by Grok AI, find trusted professionals in Coimbatore and beyond with a single search.
+            </p>
+            <div className="flex justify-center gap-4">
+              <button className="bg-white text-blue-900 px-8 py-3 rounded-full font-semibold cta-button hover:bg-teal-500 hover:text-white">
+                Book Now
+              </button>
+              <button className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold cta-button hover:bg-white hover:text-blue-900">
+                Join as a Provider
+              </button>
             </div>
-        </div>
-    </section>
+          </div>
+        </section>
+      );
+    }
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 py-8 sm:py-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-sm sm:text-base text-gray-400">© 2025 VitalCure. All rights reserved.</p>
-            <div class="mt-4 sm:mt-6 space-x-6">
-                <a href="#" class="text-gray-500 hover:text-cyan-400 text-sm sm:text-base">Privacy Policy</a>
-                <a href="#" class="text-gray-500 hover:text-cyan-400 text-sm sm:text-base">Terms of Service</a>
+    function Services() {
+      const services = [
+        { name: "Barber", icon: "✂️", description: "Book skilled barbers for haircuts and grooming." },
+        { name: "Doctor", icon: "🩺", description: "Schedule in-person or virtual doctor consultations." },
+        { name: "Lawyer", icon: "⚖️", description: "Find trusted legal professionals for your needs." },
+        { name: "Plumber", icon: "🔧", description: "Fix leaks and plumbing issues with ease." },
+        { name: "Carpenter", icon: "🪚", description: "Hire carpenters for furniture and repairs." },
+        { name: "Mechanic", icon: "🚗", description: "Get your vehicle serviced by top mechanics." },
+        { name: "Engineer", icon: "🏗️", description: "Access civil, electrical, and other engineers." },
+        { name: "Electrician", icon: "⚡️", description: "Solve electrical issues with certified experts." },
+      ];
+
+      return (
+        <section id="services" className="py-20 bg-white">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-10">Explore Our Services</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+              {services.map((service) => (
+                <div key={service.name} className="service-card bg-gray-50 p-6 rounded-xl shadow-md">
+                  <span className="text-5xl mb-4 block">{service.icon}</span>
+                  <h3 className="text-xl font-semibold text-blue-700 mb-2">{service.name}</h3>
+                  <p className="text-gray-600 text-sm">{service.description}</p>
+                </div>
+              ))}
             </div>
+          </div>
+        </section>
+      );
+    }
+
+    function About() {
+      return (
+        <section id="about" className="py-20 bg-gray-100">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-10">About OneApp</h2>
+            <p className="text-lg text-gray-700 mb-8 max-w-3xl mx-auto">
+              OneApp is revolutionizing service bookings in India, starting from Coimbatore. Our Grok-powered platform connects users with trusted professionals—from barbers to engineers—with seamless AI-driven search and booking. With low 10-15% commissions, we empower small businesses to grow while making life easier for customers.
+            </p>
+            <div className="mt-8">
+              <h3 className="text-xl font-semibold text-blue-900">Meet Our Founder</h3>
+              <p className="text-gray-700 max-w-xl mx-auto">
+                Yogesh Suthar, BHMS, is the visionary behind OneApp. With a background in healthcare and a passion for technology, Yogesh is committed to simplifying access to essential services across India.
+              </p>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function Contact() {
+      return (
+        <section id="contact" className="py-20 bg-white">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-10">Get in Touch</h2>
+            <p className="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
+              Have questions or want to join as a service provider? Reach out to us!
+            </p>
+            <div className="flex justify-center gap-4">
+              <a href="mailto:support@oneapp.in" className="bg-teal-500 text-white px-6 py-3 rounded-full font-semibold cta-button hover:bg-teal-600">
+                Email Us
+              </a>
+              <a href="tel:+919876543210" className="border-2 border-teal-500 text-teal-500 px-6 py-3 rounded-full font-semibold cta-button hover:bg-teal-500 hover:text-white">
+                Call Us
+              </a>
+            </div>
+            <p className="mt-6 text-gray-600">Coimbatore, Tamil Nadu, India</p>
+          </div>
+        </section>
+      );
+    }
+
+    function Footer() {
+      return (
+        <footer className="bg-blue-900 text-white py-8">
+          <div className="container mx-auto px-4 text-center">
+            <p className="mb-4">&copy; 2025 OneApp. All rights reserved.</p>
+            <div className="flex justify-center gap-6">
+              <a href="#" className="hover:text-teal-500">Privacy Policy</a>
+              <a href="#" className="hover:text-teal-500">Terms of Service</a>
+              <a href="#" className="hover:text-teal-500">FAQ</a>
+            </div>
+          </div>
+        </footer>
+      );
+    }
+
+    function App() {
+      return (
+        <div>
+          <Navbar />
+          <Hero />
+          <Services />
+          <About />
+          <Contact />
+          <Footer />
         </div>
-    </footer>
+      );
+    }
 
-    <script>
-        // Mobile Menu Toggle
-        document.getElementById('menuToggle').addEventListener('click', () => {
-            document.getElementById('navMenu').classList.toggle('active');
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-                if (window.innerWidth <= 640) {
-                    document.getElementById('navMenu').classList.remove('active');
-                }
-            });
-        });
-
-        // Search Form Submission
-        document.getElementById('searchForm').addEventListener('submit', async function (e) {
-            e.preventDefault();
-            const query = document.querySelector('input[name="query"]').value;
-            const doctorList = document.getElementById('doctorList');
-            doctorList.innerHTML = '<div class="text-center py-12"><span class="loading text-orange-400 text-xl">Loading...</span></div>';
-
-            try {
-                const response = await fetch('/.netlify/functions/search', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ query })
-                });
-                const data = await response.json();
-                if (data.success && data.results.length > 0) {
-                    doctorList.innerHTML = data.results.map(doctor => `
-                        <div class="doctor-card">
-                            <img src="https://via.placeholder.com/300x200.png?text=${encodeURIComponent(doctor.name)}" alt="${doctor.name}" class="w-full h-56 object-cover">
-                            <div class="p-6 text-center">
-                                <h3 class="text-xl font-semibold text-cyan-400">${doctor.name}</h3>
-                                <p class="text-orange-400 text-lg">${doctor.specialty}</p>
-                                <p class="text-gray-300 text-base">${doctor.city}</p>
-                                <button class="mt-4 neon-button px-5 py-2 rounded-full hover:bg-cyan-700 transition duration-300 text-sm">Book Now</button>
-                            </div>
-                        </div>
-                    `).join('');
-                } else {
-                    doctorList.innerHTML = '<div class="text-center py-12 text-gray-400 text-lg">No results found.</div>';
-                }
-            } catch (error) {
-                doctorList.innerHTML = '<div class="text-center py-12 text-red-400 text-lg">Error loading results. Please try again.</div>';
-            }
-        });
-    </script>
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
 </body>
 </html>
